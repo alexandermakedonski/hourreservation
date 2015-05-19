@@ -5,7 +5,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Route;
 use Auth;
 
-class Administrator {
+class RouteVerification {
 
 	/**
 	 * Handle an incoming request.
@@ -42,7 +42,7 @@ class Administrator {
             if(in_array ($method,$routes)){
                 return $next($request);
             }else{
-                return redirect()->back();
+                return redirect('/');
             }
         }
 

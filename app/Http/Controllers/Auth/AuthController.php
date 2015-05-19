@@ -32,16 +32,16 @@ class AuthController extends Controller {
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
 
+
 		$this->auth = $auth;
 		$this->registrar = $registrar;
         if($this->auth->guest()){
-            $this->middleware('admin', ['except' => ['getLogin','postLogin']]);
+            $this->middleware('routeVerification', ['except' => ['getLogin','postLogin']]);
         }else{
-            $this->middleware('admin', ['except' => ['getLogout']]);
+            $this->middleware('routeVerification', ['except' => ['getLogout','getProfilepicture']]);
         }
 
 
 	}
-
 
 }
