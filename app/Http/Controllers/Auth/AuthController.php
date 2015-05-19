@@ -20,6 +20,8 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
+    protected $redirectTo = '/';
+
 	/**
 	 * Create a new authentication controller instance.
 	 *
@@ -29,10 +31,17 @@ class AuthController extends Controller {
 	 */
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
+
 		$this->auth = $auth;
 		$this->registrar = $registrar;
+        if($this->auth->guest()){
+            $this->middleware('admin', ['except' => ['getLogin','postLogin']]);
+        }else{
+            $this->middleware('admin', ['except' => ['getLogout']]);
+        }
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+
 	}
+
 
 }

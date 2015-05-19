@@ -33,23 +33,23 @@
 
     <!-- Start Searchbox -->
     {{--<form class="searchform">--}}
-        {{--<input type="text" class="searchbox" id="searchbox" placeholder="Search">--}}
-        {{--<span class="searchbutton"><i class="fa fa-search"></i></span>--}}
+    {{--<input type="text" class="searchbox" id="searchbox" placeholder="Search">--}}
+    {{--<span class="searchbutton"><i class="fa fa-search"></i></span>--}}
     {{--</form>--}}
     <!-- End Searchbox -->
 
     <!-- Start Top Menu -->
     {{--<ul class="topmenu">--}}
-        {{--<li><a href="#">Files</a></li>--}}
-        {{--<li><a href="#">Authors</a></li>--}}
-        {{--<li class="dropdown">--}}
-            {{--<a href="#" data-toggle="dropdown" class="dropdown-toggle">My Files <span class="caret"></span></a>--}}
-            {{--<ul class="dropdown-menu">--}}
-                {{--<li><a href="#">Videos</a></li>--}}
-                {{--<li><a href="#">Pictures</a></li>--}}
-                {{--<li><a href="#">Blog Posts</a></li>--}}
-            {{--</ul>--}}
-        {{--</li>--}}
+    {{--<li><a href="#">Files</a></li>--}}
+    {{--<li><a href="#">Authors</a></li>--}}
+    {{--<li class="dropdown">--}}
+    {{--<a href="#" data-toggle="dropdown" class="dropdown-toggle">My Files <span class="caret"></span></a>--}}
+    {{--<ul class="dropdown-menu">--}}
+    {{--<li><a href="#">Videos</a></li>--}}
+    {{--<li><a href="#">Pictures</a></li>--}}
+    {{--<li><a href="#">Blog Posts</a></li>--}}
+    {{--</ul>--}}
+    {{--</li>--}}
     {{--</ul>--}}
     {{--<!-- End Top Menu -->--}}
 
@@ -104,11 +104,11 @@
 
     <ul class="sidebar-panel nav">
         <li class="sidetitle">MAIN</li>
-        <li><a href="index.html"><span class="icon color5"><i class="fa fa-home"></i></span>Dashboard<span
+        <li><a href="index.html"><span class="icon color5"><i class="fa fa-home"></i></span>Акаунти<span
                         class="label label-default">2</span></a></li>
-        <li><a href="mailbox.html"><span class="icon color6"><i class="fa fa-envelope-o"></i></span>Mailbox<span
+        <li><a href="mailbox.html"><span class="icon color6"><i class="fa fa-envelope-o"></i></span>Отчети<span
                         class="label label-default">19</span></a></li>
-        <li><a href="#"><span class="icon color7"><i class="fa fa-flask"></i></span>UI Elements<span
+        <li><a href="#"><span class="icon color7"><i class="fa fa-flask"></i></span>Часове<span
                         class="caret"></span></a>
             <ul>
                 <li><a href="icons.html">Icons</a></li>
@@ -137,8 +137,7 @@
             </ul>
         </li>
         <li><a href="widgets.html"><span class="icon color11"><i class="fa fa-diamond"></i></span>Widgets</a></li>
-        <li><a href="calendar.html"><span class="icon color8"><i class="fa fa-calendar-o"></i></span>Calendar<span
-                        class="label label-danger">NEW</span></a></li>
+        <li><a href="calendar.html"><span class="icon color8"><i class="fa fa-calendar-o"></i></span>Calendar<span class="label label-danger">NEW</span></a></li>
         <li><a href="typography.html"><span class="icon color12"><i class="fa fa-font"></i></span>Typography</a></li>
         <li><a href="#"><span class="icon color14"><i class="fa fa-paper-plane-o"></i></span>Extra Pages<span
                         class="caret"></span></a>
