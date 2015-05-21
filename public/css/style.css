@@ -1811,7 +1811,7 @@ Login Pages
 }
 .login-form form .form-area .btn {
   height: 42px;
-  font-weight: 600;
+  font-weight: 400;
 }
 .login-form form .form-area .checkbox {
   margin-bottom: 20px;
@@ -2213,7 +2213,7 @@ dd {
 }
 /* Button General */
 .btn {
-  font-size: 14px;
+  font-size: 15px;
   padding: 7px 20px 7px 20px;
   border: none;
   background: #e4e4e4;

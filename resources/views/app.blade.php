@@ -81,7 +81,7 @@
                 <li><a href="#"><i class="fa falist fa-file-o"></i>Files</a></li>
                 <li><a href="#"><i class="fa falist fa-wrench"></i>Settings</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+                <li><a href="{{ URL::to('/lock') }}"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
                 <li><a href="{{ URL::to('/auth/logout') }}"><i class="fa falist fa-power-off"></i> Logout</a></li>
             </ul>
         </li>

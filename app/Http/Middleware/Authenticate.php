@@ -35,10 +35,6 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-//        $routes = Route::where('role_id','=',Auth::user()->roles[0]->pivot->role_id)->lists('route');
-//        $array = explode('\\',$request->route()->getAction()['controller']);
-//        $method = array_pop($array);
-//        dd(in_array ($method,$routes));
 
 		if ($this->auth->guest())
 		{
@@ -55,18 +51,5 @@ class Authenticate {
 		return $next($request);
 	}
 
-//    public function handle($request, Closure $next)
-//    {
-//        if($this->auth->guest())
-//        {
-//            return redirect()->guest('auth/login');
-//        }else{
-//            $routes = $this->auth->user()->role->paths;
-//            $requestedRoute = $request->route();
-//            if(){
-//
-//            }else
-//        }
-//    }
 
 }
