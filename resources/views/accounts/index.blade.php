@@ -43,16 +43,16 @@
                                 <div class="form-group">
                                     <div class="col-sm-8">
                                         {!! Form::open(['data-remote','method'=>'POST','url'=>'/accounts/role']) !!}
-                                        {!! Form::text('user_id',$user->id,['style'=>'display:none']) !!}
+                                        {!! Form::text('user_id',\Hashids::encode($user->id,rand(0,100)),['style'=>'display:none']) !!}
 
                                         <select class="selectpicker">
 
                                             @foreach($roles as $role)
 
                                                 @if($user->roles[0]->pivot->role_id == $role->id)
-                                                    <option selected  data-role="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option selected  data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
                                                 @else
-                                                    <option data-role="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option data-role="{{ \Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
                                                 @endif
 
                                             @endforeach

@@ -215,7 +215,7 @@ $(document).ready(function () {
 
     $('.selectpicker').on('change',function(e)
     {
-
+        
         $(this).closest('form').submit();
         $('.flash').fadeIn(500).delay(300).fadeOut(500);
     });

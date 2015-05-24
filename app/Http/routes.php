@@ -22,6 +22,7 @@ Route::get('/avatar/{id}',function($id){
 
     try{
         $email = App\User::findOrFail($user_id[0])->email;
+
     }catch(\App\Exceptions\Exception $e){
         return abort(404);
     }

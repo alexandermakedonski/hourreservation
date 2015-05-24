@@ -24,9 +24,9 @@ class AccountController extends Controller {
 
     public function postRole(){
 
-        $user_id = Input::get('user_id');
-        $role_id = Input::get('role_id');
-        DB::table('role_user')->where('user_id','=',$user_id)->update(['role_id' => $role_id]);
+        $user_id = \Hashids::decode(Input::get('user_id'));
+        $role_id = \Hashids::decode(Input::get('role_id'));
+        DB::table('role_user')->where('user_id','=',$user_id[0])->update(['role_id' => $role_id[0]]);
 
     }
 
