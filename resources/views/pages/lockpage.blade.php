@@ -21,7 +21,7 @@
 <div class="login-form">
     {!! Form::open(['url' => '/lock']) !!}
         <div class="top">
-            <img src="/users/accounts/{{ $data[0]['profile_picture'] }}" alt="icon" class="icon profile">
+            <img src="{{ $data[0]['profile_picture'] }}" alt="icon" class="icon profile">
             <h1>{{ $data[0]['name'] }}</h1>
             <h4>Отключване на екрана</h4>
         </div>
@@ -40,7 +40,7 @@
     </div>
     @if (Session::has('message'))
         <div class="alert alert-danger">
-            <strong>Ооопс!</strong> Имаше някои проблеми с паролата.<br><br>
+            <strong>Уупс!</strong> Имаше някои проблеми с паролата.<br><br>
             <ul>
 
                     <li>{{ Session::get('message') }}</li>

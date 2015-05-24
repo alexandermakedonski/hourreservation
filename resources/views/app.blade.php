@@ -7,14 +7,16 @@
     <meta name="description" content="Студио шик модул">
     <meta name="keywords" content=студио,шик,запазване,час,отчети"/>
     <title>Студио ШИК запазване на час</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicons/favicon.ico') }}">
 
     <!-- ========== Css Files ========== -->
     <link href="{{ asset('/css/all.css') }}" rel="stylesheet">
 
+
 </head>
 <body>
 <!-- Start Page Loading -->
-<div class="loading"><img src="img/loading.gif" alt="loading-img"></div>
+<div class="loading"><img src="{{ asset('img/loading.gif') }}" alt="loading-img"></div>
 <!-- End Page Loading -->
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 <!-- START TOP -->
@@ -22,7 +24,7 @@
 
     <!-- Start App Logo -->
     <div class="applogo">
-        <a href="/" class="logo">Студио ШИК</a>
+        <a href="{{ URL::to('/') }}" class="logo">Студио ШИК</a>
     </div>
     <!-- End App Logo -->
 
@@ -73,7 +75,11 @@
 
 
         <li class="dropdown link">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox">@if(Auth::user()->profile_picture != NULL)<img src="/users/accounts/{{ Auth::user()->profile_picture }}" alt="img">@endif<b>{{Auth::user()->name}}</b><span class="caret"></span></a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox">
+
+                <img src="/avatar/{{ \Hashids::encode(Auth::user()->id,rand(0,100)) }}" alt="img">
+
+                <b>{{Auth::user()->name}}</b><span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
                 <li role="presentation" class="dropdown-header">Profile</li>
                 <li><a href="#"><i class="fa falist fa-inbox"></i>Inbox<span class="badge label-danger">4</span></a>
@@ -146,18 +152,23 @@
     <!-- END CONTAINER -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
+    <!-- Flash Message -->
+    <div class="flash">
+        Updated!
+    </div>
 
     <!-- Start Footer -->
     <div class="row footer">
         <div class="col-md-6 text-left">
-            Copyright © 2015 <a href="http://themeforest.net/user/egemem/portfolio" target="_blank">Egemem</a> All
+            Copyright © 2015 Alexander Makedonski All
             rights reserved.
         </div>
         <div class="col-md-6 text-right">
-            Design and Developed by <a href="http://themeforest.net/user/egemem/portfolio" target="_blank">Egemem</a>
+            Design and Developed by Alexandre Makedonski
         </div>
     </div>
     <!-- End Footer -->
+
 
 
 </div>
@@ -329,8 +340,13 @@
 <!-- ================================================
 JS Library
 ================================================ -->
+
+
 <script type="text/javascript" src="{{ URL::asset('js/all.js') }}"></script>
-
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        Global:  _token = '{{csrf_token()}}';
+    });
+</script>
 </body>
 </html>

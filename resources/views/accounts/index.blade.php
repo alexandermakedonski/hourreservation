@@ -11,7 +11,7 @@
     <!-- End Page Header -->
     
 
-    <div class="panel panel-default">
+    <div class="panel panel-default panel-account">
 
         <div class="panel-title">
             Служители
@@ -33,20 +33,44 @@
                 </thead>
                 <tbody>
                 @foreach($users as $user)
-                <tr class="info">
-                    <td ><div class="list-image"><img src="/users/accounts/{{$user->profile_picture}}" alt="img" class="img"></div></td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->roles[0]->name }}</td>
-                    <td>{{ $user->created_at->diffForHumans() }}</td>
-                    <td>As we got further and further away, it [the Earth] diminished in size.</td>
-                    <td>Credit Card</td>
-                    <td>Бутон</td>
-                </tr>
+
+                        <tr class="info">
+                            <td ><div class="list-image"><img src="/users/accounts/{{$user->profile_picture}}" alt="img" class="img"></div></td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->roles[0]->name }}</td>
+                            <td>{{ $user->created_at->diffForHumans() }}</td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        {!! Form::open(['data-remote','method'=>'POST','url'=>'/accounts/role']) !!}
+                                        {!! Form::text('user_id',$user->id,['style'=>'display:none']) !!}
+
+                                        <select class="selectpicker">
+
+                                            @foreach($roles as $role)
+
+                                                @if($user->roles[0]->pivot->role_id == $role->id)
+                                                    <option selected  data-role="{{ $role->id }}">{{ $role->name }}</option>
+                                                @else
+                                                    <option data-role="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endif
+
+                                            @endforeach
+
+                                        </select>
+
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Credit Card</td>
+                            <td>Бутон</td>
+                        </tr>
+
                 @endforeach
                 </tbody>
             </table>
         </div>
-
     </div>
 
 @endsection

@@ -13,6 +13,9 @@ Google Web Fonts
 /* Open Sans */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
 
+@import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic);
+
+
 /* === Icons === */
 /* Font Awesome */
 @import url('font-awesome.min.css');
@@ -74,6 +77,22 @@ Plugin Css
 
 
 
+.flash {
+  background: #399BFF;
+  color: white;
+  width: 200px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  padding: 1em;
+  font-size: 14px;
+  font-family: cursive;
+  display: none; }
+
+.panel-account {
+  width: 110%;
+  top: -20px;
+  left: -30px; }
 
 
 /*# sourceMappingURL=app.css.map */

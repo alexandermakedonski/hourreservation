@@ -31,9 +31,10 @@ class RouteVerification {
 
 	public function handle($request, Closure $next)
     {
+
         if($this->auth->guest())
         {
-            return redirect()->guest('auth/login');
+            return abort(403);
         }else{
             $routes = Route::where('role_id','=',Auth::user()->roles[0]->pivot->role_id)->lists('route');
             $array = explode('\\',$request->route()->getAction()['controller']);
@@ -42,7 +43,7 @@ class RouteVerification {
             if(in_array ($method,$routes)){
                 return $next($request);
             }else{
-                return redirect('/');
+                return abort(403);
             }
         }
 

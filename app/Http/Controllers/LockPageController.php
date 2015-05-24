@@ -14,29 +14,40 @@ class LockPageController extends Controller {
     {
 
         if(Auth::check()){
-            $data[] = [
-                'name' => Auth::user()->name,
-                'email' => Auth::user()->email,
-                'profile_picture' => Auth::user()->profile_picture,
-            ];
+
+            $data = $this->authUserInfo();
             session()->put('key',$data);
             Auth::logout();
+
         }else {
 
-            if (Session::has('key'))
-            {
-                $data = session()->get('key');
-
-            }else{
-                return redirect('/');
-            }
+            $data = $this->hasSessoin();
 
         }
 
-
-
-//        dd($data[0]['name']);
         return view('pages.lockpage',compact('data'));
+    }
+
+    public function authUserInfo(){
+        $data[] = [
+            'name' => Auth::user()->name,
+            'profile_picture' => '/avatar/'.\Hashids::encode(Auth::user()->id,rand(0,100)),
+            'email' => Auth::user()->email,
+        ];
+
+        return $data;
+    }
+
+    public function hasSessoin(){
+
+        if (Session::has('key'))
+        {
+            $data = session()->get('key');
+            return $data;
+
+        }else{
+            return redirect('/');
+        }
     }
 
     public function postIndex(Request $request){
