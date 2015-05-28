@@ -12,6 +12,12 @@
     <!-- ========== Css Files ========== -->
     <link href="{{ asset('/css/all.css') }}" rel="stylesheet">
 
+    <script type="text/javascript" src="{{ URL::asset('js/all.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Global:  _token = '{{csrf_token()}}';
+        });
+    </script>
 
 </head>
 <body>
@@ -306,21 +312,21 @@
 
             <div class="gn-title">ONLINE MEMBERS (3)</div>
             <ul class="group">
-                <li class="member"><a href="#"><img src="img/profileimg.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span
+                <li class="member"><a href="#"><img src="/img/profileimg.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span
                             class="status online"></span></li>
-                <li class="member"><a href="#"><img src="img/profileimg2.png" alt="img"><b>James Throwing</b>Las
+                <li class="member"><a href="#"><img src="/img/profileimg2.png" alt="img"><b>James Throwing</b>Las
                         Vegas</a><span class="status busy"></span></li>
-                <li class="member"><a href="#"><img src="img/profileimg3.png" alt="img"><b>Fred Stonefield</b>New
+                <li class="member"><a href="#"><img src="/img/profileimg3.png" alt="img"><b>Fred Stonefield</b>New
                         York</a><span class="status away"></span></li>
-                <li class="member"><a href="#"><img src="img/profileimg4.png" alt="img"><b>Chris M. Johnson</b>California</a><span
+                <li class="member"><a href="#"><img src="/img/profileimg4.png" alt="img"><b>Chris M. Johnson</b>California</a><span
                             class="status online"></span></li>
             </ul>
 
             <div class="gn-title">OFFLINE MEMBERS (8)</div>
             <ul class="group">
-                <li class="member"><a href="#"><img src="img/profileimg5.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span
+                <li class="member"><a href="#"><img src="/img/profileimg5.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span
                             class="status offline"></span></li>
-                <li class="member"><a href="#"><img src="img/profileimg6.png" alt="img"><b>James Throwing</b>Las
+                <li class="member"><a href="#"><img src="/img/profileimg6.png" alt="img"><b>James Throwing</b>Las
                         Vegas</a><span class="status offline"></span></li>
             </ul>
 
@@ -342,11 +348,6 @@ JS Library
 ================================================ -->
 
 
-<script type="text/javascript" src="{{ URL::asset('js/all.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        Global:  _token = '{{csrf_token()}}';
-    });
-</script>
+
 </body>
 </html>

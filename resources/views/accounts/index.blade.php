@@ -35,7 +35,7 @@
                 @foreach($users as $user)
 
                         <tr class="info">
-                            <td ><div class="list-image"><img src="/users/accounts/{{$user->profile_picture}}" alt="img" class="img"></div></td>
+                            <td ><div class="list-image"><img src="/avatar/{{\Hashids::encode($user->id,rand(0,100))}}" alt="img" class="img"></div></td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->roles[0]->name }}</td>
                             <td>{{ $user->created_at->diffForHumans() }}</td>
@@ -68,6 +68,15 @@
                         </tr>
 
                 @endforeach
+                <tr class="info">
+                    <td><a href="{{ URL::to('/auth/register') }}" class="btn btn-light"><i class="fa fa-user"></i>Добави акаунт</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>

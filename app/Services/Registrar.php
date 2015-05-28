@@ -15,6 +15,16 @@ class Registrar implements RegistrarContract {
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+        ],[
+            'name.required' => 'Името е задължително.',
+            'name.max' => 'Максимална дължина на името 255 символа.',
+            'email.required' => 'Имейлът е задължителен.',
+            'email.email' => 'Невалиден имейл.',
+            'email.max' => 'Максимална дължина на имейла 255 символа.',
+            'email.unique' => 'Този имейл адрес се повтаря.',
+            'password.required' => 'Паролата е задължителна.',
+            'password.confirmed' => 'Потвърдената парола е грешна.',
+            'password.min' => 'Минимална дължина на паролата 6 символа.',
         ]);
     }
     /**
