@@ -17,7 +17,8 @@ elixir(function(mix) {
 
     mix.styles([
     	'root.css',
-        'app.css'
+        'app.css',
+        'bootstrap-multiselect.css'
     ],null,'public/css')
 
     mix.scripts([
@@ -26,7 +27,8 @@ elixir(function(mix) {
     	'/vendor/bootstrap.min.js',
     	'/vendor/plugins.js',
         'ajax-helpers.js',
-        'app.js'
+        'app.js',
+        '/vendor/bootstrap-multiselect.js',
 
     ],null,'public/js')
 

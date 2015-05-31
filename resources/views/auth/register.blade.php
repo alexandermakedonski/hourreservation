@@ -4,118 +4,172 @@
 
     <style>
         .popover-content {
-            padding: 7px 35px;
+            color: #fff;
             width: 295px;
-            min-height: 40px;
-            color: #fff;
+            min-height: 50px;
         }
-        .login-form form .form-area .fa-warning{
-            color: #fff;
+
+        .registration-form form .group .fa-position {
+            position: relative;
+            top: 32px;
+            left: 14px;
+            font-size: 18px;
+            color: #C3C3C3;
         }
+        .registration-form form .group .form-postition {
+            padding-left: 38px;
+            height: 40px;
+        }
+
+        .open > .dropdown-menu {
+            display: block;
+            width: 350px;
+        }
+        .btn-pos{
+            float: right;
+        }
+
+        .registration-form form .group .pop-warning{
+
+            font-size: 16px;
+            color: #B94A48;
+            display: none;
+            cursor: pointer;
+            float: right;
+            margin-top: -25px;
+            display: none;
+            padding-right: 10px;
+
+        }
+
     </style>
 
-<!-- Start Page Header -->
-<div class="page-header">
-    <h1 class="title">Акаунти</h1>
-    <ol class="breadcrumb">
-        <li class="active">Форма достъпна само за администратори - за добвяне и коригиране на акаунти</li>
-    </ol>
-</div>
-<!-- End Page Header -->
-<div class="login-form">
-    {!! Form::open(['data-remote-account','method'=>'post','url'=>'auth/register']) !!}
-        <div class="top">
-            <h1>Регистрация</h1>
-            <h4>Регистриране на нов служител</h4>
+    <!-- Start Page Header -->
+    <div class="page-header">
+        <h1 class="title">Акаунти</h1>
+        <ol class="breadcrumb">
+            <li class="active">Форма достъпна само за администратори - за добвяне и коригиране на акаунти</li>
+        </ol>
+    </div>
+    <div class="row">
+
+
+        <div class="col-md-12 col-lg-6 registration-form">
+            <div class="panel panel-default">
+
+                <div class="panel-title">
+                    Регистрация
+                    <ul class="panel-tools">
+                        <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    {!! Form::open(['data-remote-account','method'=>'post','url'=>'auth/register']) !!}
+                    <div class="group">
+                        <i class="fa-position fa fa-user"></i>
+                        {!! Form::text('name',null,['class' => 'form-postition form-control','placeholder'=>'Име']) !!}
+                        <i class="fa fa-warning pop-warning"></i>
+                    </div>
+                    <div class="group">
+                        <i class="fa-position fa fa-envelope-o"></i>
+                        {!! Form::text('email',null,['class' => 'form-postition form-control','placeholder' => 'Имейл']) !!}
+                        <i class="fa fa-warning pop-warning"></i>
+                    </div>
+                    <div class="group">
+                        <i class="fa-position fa fa-key "></i>
+                        {!! Form::password('password',['class' => 'form-postition form-control','placeholder' => 'Парола']) !!}
+                        <i class="fa fa-warning pop-warning"></i>
+                    </div>
+
+                    <div class="group">
+                        <i class="fa-position fa fa-key"></i>
+                        {!! Form::password('password_confirmation',['class' => 'form-postition form-control','placeholder' => 'Потвърди парола']) !!}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <select id="example-multiple-optgroups" multiple="multiple">
+                            <optgroup label="Group 1">
+                                <option value="1-1">Option 1.1</option>
+                                <option value="1-2">Option 1.2</option>
+                                <option value="1-3">Option 1.3</option>
+                            </optgroup>
+                            <optgroup label="Group 2">
+                                <option value="2-1">Option 2.1</option>
+                                <option value="2-2">Option 2.2</option>
+                                <option value="2-3">Option 2.3</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select>
+
+                            @foreach($roles as $role)
+                                @if($role->name == 'Base')
+                                    <option  selected data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                @else
+                                    <option  data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                @endif
+                            @endforeach
+
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-light btn-pos">Регистрирай</button>
+                    {!! Form::close() !!}
+
+                </div>
+
+            </div>
         </div>
-        <div class="form-area">
-            <div class="group">
-                <!-- Form Input -->
-                    {!! Form::text('name',null,['class' => 'form-control','placeholder'=>'Име']) !!}
-                <div class="popover fade right in" role="tooltip" id="popover963288" style="top: -5px; left: 278px; display: block; display:none;">
-                    <div class="arrow"></div>
-                    <i class="fa fa-warning"></i>
-                    <div id="name_error" class="popover-content"></div>
-                </div>
-                <div id ="name_error"></div>
 
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="group">
-                {!! Form::text('email',null,['class' => 'form-control','placeholder' => 'Имейл']) !!}
-                <div class="popover fade right in" role="tooltip" id="popover10953" style="top: -5px; left: 278px; display: block; display: none;">
-                    <div class="arrow"></div>
-                    <i class="fa fa-warning"></i>
-                    <div id="email_error" class="popover-content"></div>
-                </div>
-                <i class="fa fa-envelope-o"></i>
-            </div>
-            <div class="group">
-                {!! Form::password('password',['class' => 'form-control','placeholder' => 'Парола']) !!}
-                <div class="popover fade right in" role="tooltip" id="popover789287" style="top: -5px; left: 278px; display: block; display: none;">
-                    <div class="arrow"></div>
-                    <i class="fa fa-warning"></i>
-                    <div id="password_error" class="popover-content"></div>
-                </div>
-                <i class="fa fa-key"></i>
-            </div>
-            <div class="group">
-                {!! Form::password('password_confirmation',['class' => 'form-control','placeholder' => 'Потвърди парола']) !!}
-                <i class="fa fa-key"></i>
-            </div>
-            <button type="submit" class="btn btn-default btn-block">Продължи</button>
-        </div>
-    {!! Form::close() !!}
-    <br>
-
-</div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-    var submitAjaxAccountCreate = function (e){
-        var form = $(this);
-        index = ['name','email','password'];
-        hideIt = [];
-        data = form.serialize();
-        $.ajax({
-            type: 'POST',
-            url: form.prop('action'),
-            data: data,
-            success:function(data){
-                if(data.fail){
-
-                    $.each(data.errors, function( index, value ) {
-                        var errorDiv = '#'+index+'_error';
-                            $(errorDiv).addClass('required');
-                            $(errorDiv).empty().append(value);
-                            hideIt.push(index);
-                    });
-                    index.forEach(function(enter){
-                        if( hideIt.indexOf(enter) == -1){
-                            var errorDiv = '#'+enter+'_error';
-                            $(errorDiv).empty();
-                            $(errorDiv).parent().fadeOut(250);
-                        }else{
-                            var errorDiv = '#'+enter+'_error';
-                            $(errorDiv).parent().show();
-                        }
-                    });
-                }else{
-                    $('#name_error').empty();
-                    $('#name_error').parent().hide();
-                    $('#email_error').empty();
-                    $('#email_error').parent().hide();
-                    $('#password_error').empty();
-                    $('#password_error').parent().hide();
-                }
-            }
+    </div>
+    <script type="text/javascript">
+        $('#example-multiple-optgroups').multiselect({
+            enableFiltering: true,
+            enableClickableOptGroups: true
         });
-        e.preventDefault();
-    }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
 
-    $("form[data-remote-account]").on('submit',submitAjaxAccountCreate);
+            var submitAjaxAccountCreate = function (e){
+                var form = $(this);
+                index = ['name','email','password'];
+                hideIt = [];
+                data = form.serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: form.prop('action'),
+                    data: data,
+                    success:function(data){
+                        if(data.fail){
 
-});
-</script>
+                            $.each(data.errors, function( index, value ) {
+
+                              var popover =  $('input[name='+index+']').next().popover('hide');
+                              popover.attr('data-content', value);
+
+                                hideIt.push(index);
+                            });
+                            index.forEach(function(enter){
+                                if( hideIt.indexOf(enter) == -1){
+                                    $('input[name='+enter+']').next().popover('destroy');
+                                    $('input[name='+enter+']').next().hide();
+                                }else{
+                                    $('input[name='+enter+']').next().show();
+                                }
+                            });
+
+
+                        }
+                    }
+                });
+                e.preventDefault();
+            }
+
+            $("form[data-remote-account]").on('submit',submitAjaxAccountCreate);
+
+        });
+    </script>
 @endsection
