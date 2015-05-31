@@ -64,7 +64,7 @@
                     </ul>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" style="display: none;">
                     {!! Form::open(['data-remote-account','method'=>'post','url'=>'auth/register']) !!}
                     <div class="group">
                         <i class="fa-position fa fa-user"></i>
@@ -149,11 +149,12 @@
                             $.each(data.errors, function( index, value ) {
 
                               var popover =  $('[data-show-error='+index+']').show().popover();
-                                console.log(popover);
                               popover.attr('data-content', value);
 
                             });
 
+                        }else{
+                            $('[data-show-error]').hide().popover('destroy');
                         }
                     }
                 });
