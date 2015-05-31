@@ -69,17 +69,17 @@
                     <div class="group">
                         <i class="fa-position fa fa-user"></i>
                         {!! Form::text('name',null,['class' => 'form-postition form-control','placeholder'=>'Име']) !!}
-                        <i class="fa fa-warning pop-warning"></i>
+                        <i data-show-error="name" class="fa fa-warning pop-warning"></i>
                     </div>
                     <div class="group">
                         <i class="fa-position fa fa-envelope-o"></i>
                         {!! Form::text('email',null,['class' => 'form-postition form-control','placeholder' => 'Имейл']) !!}
-                        <i class="fa fa-warning pop-warning"></i>
+                        <i data-show-error="email" class="fa fa-warning pop-warning"></i>
                     </div>
                     <div class="group">
                         <i class="fa-position fa fa-key "></i>
                         {!! Form::password('password',['class' => 'form-postition form-control','placeholder' => 'Парола']) !!}
-                        <i class="fa fa-warning pop-warning"></i>
+                        <i data-show-error="password" class="fa fa-warning pop-warning"></i>
                     </div>
 
                     <div class="group">
@@ -135,8 +135,6 @@
 
             var submitAjaxAccountCreate = function (e){
                 var form = $(this);
-                index = ['name','email','password'];
-                hideIt = [];
                 data = form.serialize();
                 $.ajax({
                     type: 'POST',
@@ -145,22 +143,16 @@
                     success:function(data){
                         if(data.fail){
 
+
+                            $('[data-show-error]').hide().popover('hide');
+
                             $.each(data.errors, function( index, value ) {
 
-                              var popover =  $('input[name='+index+']').next().popover('hide');
+                              var popover =  $('[data-show-error='+index+']').show().popover();
+                                console.log(popover);
                               popover.attr('data-content', value);
 
-                                hideIt.push(index);
                             });
-                            index.forEach(function(enter){
-                                if( hideIt.indexOf(enter) == -1){
-                                    $('input[name='+enter+']').next().popover('destroy');
-                                    $('input[name='+enter+']').next().hide();
-                                }else{
-                                    $('input[name='+enter+']').next().show();
-                                }
-                            });
-
 
                         }
                     }
