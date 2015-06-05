@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use App\Category_service;
 use Input;
 use DB;
 
@@ -16,10 +17,11 @@ class AccountController extends Controller {
     }
 
     public function getIndex(){
-        $users = User::get();
-        $roles = Role::get();
-
-        return view('accounts.index',compact('users','roles'));
+        $users = User::all();
+        $roles = Role::orderBy('id', 'DESC')->get();
+        $root_categories = Category_service::whereIsRoot()->get();
+        $categories = Category_service::get();
+        return view('accounts.index',compact('users','roles','root_categories','categories'));
     }
 
     public function postRole(){

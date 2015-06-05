@@ -51,6 +51,7 @@ $(document).ready(function () {
             url: '/auth/regfinal',
             data: {_token:_token,email:$('input[name="email"]').val()},
             success:function(data){
+                //console.log(data);
             }
         });
     });
@@ -76,17 +77,18 @@ $(document).ready(function () {
                     });
 
                 }else{
+                    //console.log(uploader.files.length);
                     uploader.start();
                     $('[data-show-error]').hide().popover('destroy');
                     $('.flash').empty().append('Аккаънтът е създаден!').fadeIn(500).delay(1000).fadeOut(500);
-                    $('.panel-body').hide();
-                    $('input[name="name"]').val('');
-                    $('input[name="email"]').val('');
-                    $('input[name="password"]').val('');
-                    $('input[name="password_confirmation"]').val('');
-                    $('#avatar-upload').empty();
-                    $('#example-multiple-optgroups').multiselect('deselectAll', false);
-                    $('#example-multiple-optgroups').multiselect('updateButtonText');
+                    //$('.panel-body').hide();
+                    //$('input[name="name"]').val('');
+                    //$('input[name="email"]').val('');
+                    //$('input[name="password"]').val('');
+                    //$('input[name="password_confirmation"]').val('');
+                    //$('#avatar-upload').empty();
+                    //$('#example-multiple-optgroups').multiselect('deselectAll', false);
+                    //$('#example-multiple-optgroups').multiselect('updateButtonText');
                 }
             }
         });
@@ -94,5 +96,9 @@ $(document).ready(function () {
     }
 
     $("form[data-remote-account]").on('submit',submitAjaxAccountCreate);
+
+    $(".minimise-tool").on('click',function(){
+        $('.create-account-table').height(1300);
+    });
 
 });

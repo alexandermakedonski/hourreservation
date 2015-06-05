@@ -10,7 +10,7 @@
     </div>
     <!-- End Page Header -->
     
-
+<div class="col-md-12">
     <div class="panel panel-default panel-account">
 
         <div class="panel-title">
@@ -37,7 +37,22 @@
                         <tr class="info">
                             <td ><div class="list-image"><img src="/avatar/{{\Hashids::encode($user->id,rand(0,100))}}" alt="img" class="img"></div></td>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->roles[0]->name }}</td>
+                            <td><select name="categories[]" class="select-account-position" multiple="multiple">
+                                    @foreach($root_categories as $root)
+                                        <optgroup label="{{ $root->name }}">
+                                            @foreach($categories as $category)
+                                                @if($root->id == $category->parent_id)
+                                                    @if( $user->categoryServices->contains($category->id ) )
+                                                        <option value="{{ $category->id }}" selected >{{ $category->name }}</option>
+                                                    @else
+                                                        <option value="{{ $category->id }}"  >{{ $category->name }}</option>
+                                                    @endif
+
+                                                @endif
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select></td>
                             <td>{{ $user->created_at->diffForHumans() }}</td>
                             <td>
                                 <div class="form-group">
@@ -68,18 +83,24 @@
                         </tr>
 
                 @endforeach
-                <tr class="info">
-                    <td><a href="{{ URL::to('/auth/register') }}" class="btn btn-light"><i class="fa fa-user"></i>Добави акаунт</a></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
+</div>
+<div class="create-account-table">
+    <div class="col-md-12 col-lg-6 registration-form">
+        @include('auth.register')
+    </div>
+</div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select-account-position').multiselect({
+                enableFiltering: true,
+                enableClickableOptGroups: true,
+                buttonWidth: '340px'
+            });
+            
+        });
+    </script>
 @endsection
