@@ -198,13 +198,12 @@ $(document).ready(function () {
 
         var form = $(this);
         user_id = form.find('input[name="user_id"]').val();
-        role_id = form.find('option:selected').attr('data-role');
+        role_id = form.find('option:selected').val();
         $.ajax({
             type: 'POST',
             url: form.prop('action'),
             data: {'_token':_token,'user_id':user_id,'role_id':role_id},
             success:function(data){
-                console.log(data);
             }
         });
 
@@ -217,7 +216,7 @@ $(document).ready(function () {
     {
         
         $(this).closest('form').submit();
-        $('.flash').fadeIn(500).delay(300).fadeOut(500);
+        $('.flash').empty().append('Updated!').fadeIn(500).delay(300).fadeOut(500);
     });
 
 });
@@ -547,14 +546,14 @@ $(document).ready(function () {
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
             enableClickableOptGroups: false,
-            filterPlaceholder: 'Search',
+            filterPlaceholder: 'Търси',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
-            nonSelectedText: 'None selected',
-            nSelectedText: 'selected',
-            allSelectedText: 'All selected',
+            nonSelectedText: 'Няма избрани',
+            nSelectedText: 'избрани',
+            allSelectedText: 'Всички са избрани',
             numberDisplayed: 3,
             disableIfEmpty: false,
             delimiterText: ', ',

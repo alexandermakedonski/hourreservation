@@ -50,9 +50,9 @@
                                             @foreach($roles as $role)
 
                                                 @if($user->roles[0]->pivot->role_id == $role->id)
-                                                    <option selected  data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                                    <option selected value="{{\Hashids::encode($role->id,rand(0,100)) }}" >{{ $role->name }}</option>
                                                 @else
-                                                    <option data-role="{{ \Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                                    <option value="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
                                                 @endif
 
                                             @endforeach

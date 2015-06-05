@@ -147,6 +147,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
         'Torann\Hashids\HashidsServiceProvider',
+        'Jenky\LaravelPlupload\PluploadServiceProvider',
+
 
 	],
 
@@ -198,6 +200,7 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Image' => 'Intervention\Image\Facades\Image',
+        'Plupload' => 'Jenky\LaravelPlupload\Facades\Plupload',
 
 	],
 

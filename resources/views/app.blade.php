@@ -159,9 +159,7 @@
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
     <!-- Flash Message -->
-    <div class="flash">
-        Updated!
-    </div>
+    <div class="flash"></div>
 
     <!-- Start Footer -->
     <div class="row footer">

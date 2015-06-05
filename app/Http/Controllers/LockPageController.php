@@ -69,6 +69,7 @@ class LockPageController extends Controller {
     {
         if (Auth::attempt(array('email' => $email, 'password' => $password)))
         {
+            session()->forget('key');
             return redirect('/');
         }
         if ($validator->fails())

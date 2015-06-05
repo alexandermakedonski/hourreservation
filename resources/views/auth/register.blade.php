@@ -5,8 +5,7 @@
     <style>
         .popover-content {
             color: #fff;
-            width: 295px;
-            min-height: 50px;
+            width: 275px;
         }
 
         .registration-form form .group .fa-position {
@@ -21,10 +20,6 @@
             height: 40px;
         }
 
-        .open > .dropdown-menu {
-            display: block;
-            width: 350px;
-        }
         .btn-pos{
             float: right;
         }
@@ -42,6 +37,18 @@
 
         }
 
+        #avatar-upload{
+            width: 70px;
+            height: 70px;
+            border: dashed 2px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        #avatar-upload canvas{
+            width: 70px;
+            height: 70px;
+        }
     </style>
 
     <!-- Start Page Header -->
@@ -54,9 +61,8 @@
     <div class="row">
 
 
-        <div class="col-md-12 col-lg-6 registration-form">
+        <div class="col-md-12 col-lg-5 registration-form">
             <div class="panel panel-default">
-
                 <div class="panel-title">
                     Регистрация
                     <ul class="panel-tools">
@@ -66,6 +72,9 @@
 
                 <div class="panel-body" style="display: none;">
                     {!! Form::open(['data-remote-account','method'=>'post','url'=>'auth/register']) !!}
+                    <div class="group">
+                        <div id="avatar-upload"></div>
+                    </div>
                     <div class="group">
                         <i class="fa-position fa fa-user"></i>
                         {!! Form::text('name',null,['class' => 'form-postition form-control','placeholder'=>'Име']) !!}
@@ -88,34 +97,33 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <select id="example-multiple-optgroups" multiple="multiple">
-                            <optgroup label="Group 1">
-                                <option value="1-1">Option 1.1</option>
-                                <option value="1-2">Option 1.2</option>
-                                <option value="1-3">Option 1.3</option>
-                            </optgroup>
-                            <optgroup label="Group 2">
-                                <option value="2-1">Option 2.1</option>
-                                <option value="2-2">Option 2.2</option>
-                                <option value="2-3">Option 2.3</option>
-                            </optgroup>
+                        <select name="categories[]" id="example-multiple-optgroups" multiple="multiple">
+                            @foreach($root_categories as $root)
+                                <optgroup label="{{ $root->name }}">
+                                    @foreach($categories as $category)
+                                        @if($root->id == $category->parent_id)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <select>
+                        <select name="role">
 
                             @foreach($roles as $role)
                                 @if($role->name == 'Base')
-                                    <option  selected data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}"  selected>{{ $role->name }}</option>
                                 @else
-                                    <option  data-role="{{\Hashids::encode($role->id,rand(0,100)) }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}" >{{ $role->name }}</option>
                                 @endif
                             @endforeach
 
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-light btn-pos">Регистрирай</button>
+                    <button id="start-upload" type="submit" class="btn btn-light btn-pos">Регистрирай</button>
                     {!! Form::close() !!}
 
                 </div>
@@ -127,42 +135,10 @@
     <script type="text/javascript">
         $('#example-multiple-optgroups').multiselect({
             enableFiltering: true,
-            enableClickableOptGroups: true
+            enableClickableOptGroups: true,
+            buttonWidth: '340px'
         });
     </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-            var submitAjaxAccountCreate = function (e){
-                var form = $(this);
-                data = form.serialize();
-                $.ajax({
-                    type: 'POST',
-                    url: form.prop('action'),
-                    data: data,
-                    success:function(data){
-                        if(data.fail){
-
-
-                            $('[data-show-error]').hide().popover('hide');
-
-                            $.each(data.errors, function( index, value ) {
-
-                              var popover =  $('[data-show-error='+index+']').show().popover();
-                              popover.attr('data-content', value);
-
-                            });
-
-                        }else{
-                            $('[data-show-error]').hide().popover('destroy');
-                        }
-                    }
-                });
-                e.preventDefault();
-            }
-
-            $("form[data-remote-account]").on('submit',submitAjaxAccountCreate);
-
-        });
-    </script>
+    <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('js/accountregister.js') }}"></script>
 @endsection
