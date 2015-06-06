@@ -54,6 +54,7 @@ $(document).ready(function () {
                 //console.log(data);
             }
         });
+        window.location.reload();
     });
 
     var submitAjaxAccountCreate = function (e){
@@ -80,7 +81,10 @@ $(document).ready(function () {
                     //console.log(uploader.files.length);
                     uploader.start();
                     $('[data-show-error]').hide().popover('destroy');
-                    $('.flash').empty().append('Аккаънтът е създаден!').fadeIn(500).delay(1000).fadeOut(500);
+                    $('.flash').empty().append('Акаунтът е създаден!').fadeIn(500).delay(1000).fadeOut(500);
+                    if(uploader.files.length == 0){
+                        window.location.reload();
+                    }
                     //$('.panel-body').hide();
                     //$('input[name="name"]').val('');
                     //$('input[name="email"]').val('');

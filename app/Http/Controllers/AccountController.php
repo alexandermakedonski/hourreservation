@@ -32,4 +32,21 @@ class AccountController extends Controller {
 
     }
 
+    public function postEmployment(){
+        $bool = Input::get('bool');
+        if($bool == 'true'){
+            $user_id = Input::get('user_id');
+            $category_service_id = Input::get('category_service_id');
+            $user = User::find($user_id);
+            $user->categoryServices()->attach($category_service_id);
+            return 'true';
+        }else{
+            $user_id = Input::get('user_id');
+            $category_service_id = Input::get('category_service_id');
+            $user = User::find($user_id);
+            $user->categoryServices()->detach($category_service_id);
+            return 'false';
+        }
+    }
+
 }

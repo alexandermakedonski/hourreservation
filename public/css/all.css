@@ -81,11 +81,11 @@ Plugin Css
   background: #399BFF;
   color: white;
   width: 200px;
-  position: absolute;
-  right: 20px;
+  position: fixed;
   bottom: 20px;
+  right: 20px;
   padding: 1em;
-  font-size: 14px;
+  font-size: 15px;
   font-family: cursive;
   display: none; }
 
@@ -94,7 +94,7 @@ Plugin Css
   width: 275px; }
 
 .create-account-table {
-  height: 200px; }
+  height: 500px; }
 
 .registration-form form .group .fa-position {
   position: relative;

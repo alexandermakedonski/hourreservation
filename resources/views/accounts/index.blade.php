@@ -37,7 +37,10 @@
                         <tr class="info">
                             <td ><div class="list-image"><img src="/avatar/{{\Hashids::encode($user->id,rand(0,100))}}" alt="img" class="img"></div></td>
                             <td>{{ $user->name }}</td>
-                            <td><select name="categories[]" class="select-account-position" multiple="multiple">
+                            <td>
+                                {!! Form::open(['data-employment','method'=>'POST','url'=>'/accounts/employment']) !!}
+                                {!! Form::text('user_id',$user->id,['style'=>'display:none']) !!}
+                                <select name="categories[]" class="select-account-position" multiple="multiple">
                                     @foreach($root_categories as $root)
                                         <optgroup label="{{ $root->name }}">
                                             @foreach($categories as $category)
@@ -47,12 +50,14 @@
                                                     @else
                                                         <option value="{{ $category->id }}"  >{{ $category->name }}</option>
                                                     @endif
-
                                                 @endif
                                             @endforeach
                                         </optgroup>
                                     @endforeach
-                                </select></td>
+                                </select>
+                                {!! Form::close() !!}
+
+                            </td>
                             <td>{{ $user->created_at->diffForHumans() }}</td>
                             <td>
                                 <div class="form-group">
@@ -98,9 +103,37 @@
             $('.select-account-position').multiselect({
                 enableFiltering: true,
                 enableClickableOptGroups: true,
-                buttonWidth: '340px'
+                maxHeight: 600,
+                onChange: function(option, checked, select) {
+                    user_id = $(option).closest('form').find('input[name="user_id"]').val();
+
+                    if(checked){
+                        //console.log('true'+ $(option).val());
+                       // console.log($(option).closest('form').find('input[name="user_id"]').val());
+                        $.ajax({
+                            type:'POST',
+                            url:'/accounts/employment',
+                            data: {'_token':_token,'user_id':user_id,'category_service_id':$(option).val(),'bool':'true'},
+                            success:function(data){
+                                //console.log(data);
+                            }
+                        })
+
+                    }else{
+                        //console.log('false' + $(option).val());
+                        $.ajax({
+                            type:'POST',
+                            url:'/accounts/employment',
+                            data: {'_token':_token,'user_id':user_id,'category_service_id':$(option).val(),'bool':'false'},
+                            success:function(data){
+                                //console.log(data);
+                            }
+                        })
+                    }
+                    $('.flash').empty().append('Акаунтът е обновен!').fadeIn(500).delay(300).fadeOut(500);
+                }
             });
-            
+
         });
     </script>
 @endsection

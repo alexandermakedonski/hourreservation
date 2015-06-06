@@ -73,7 +73,8 @@
         $('#multiple-optgroups').multiselect({
             enableFiltering: true,
             enableClickableOptGroups: true,
-            buttonWidth: '340px'
+            buttonWidth: '340px',
+            maxHeight:600
         });
     </script>
     <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>

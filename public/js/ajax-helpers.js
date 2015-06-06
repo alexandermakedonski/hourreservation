@@ -21,7 +21,7 @@ $(document).ready(function () {
     {
         
         $(this).closest('form').submit();
-        $('.flash').empty().append('Updated!').fadeIn(500).delay(300).fadeOut(500);
+        $('.flash').empty().append('Акаунтът е обновен!').fadeIn(500).delay(300).fadeOut(500);
     });
 
 });
