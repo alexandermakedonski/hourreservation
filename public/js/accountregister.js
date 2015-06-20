@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     uploader.bind('UploadComplete',function(up, files){
         $.ajax({
-            url: '/accounts/accounts',
+            url: '/accounts/accounts/?page='+$( ".page-users").size(),
             type: "GET", // not POST, laravel won't allow it
             success: function(data){
                 $data = $(data); // the HTML content your controller has produced
@@ -68,8 +68,8 @@ $(document).ready(function () {
         $('input[name="password"]').val('');
         $('input[name="password_confirmation"]').val('');
         $('#avatar-upload').empty();
-        $('#example-multiple-optgroups').multiselect('deselectAll', false);
-        $('#example-multiple-optgroups').multiselect('updateButtonText');
+        $('#multiple-optgroups').multiselect('deselectAll', false);
+        $('#multiple-optgroups').multiselect('updateButtonText');
     });
 
     var submitAjaxAccountCreate = function (e) {
@@ -98,7 +98,7 @@ $(document).ready(function () {
                     $('.flash').empty().append('Акаунтът е създаден!').fadeIn(500).delay(1000).fadeOut(500);
                     if(uploader.files.length < 1){
                         $.ajax({
-                            url: '/accounts/accounts',
+                            url: '/accounts/accounts/?page='+$( ".page-users").size(),
                             type: "GET", // not POST, laravel won't allow it
                             success: function(data){
                                 $data = $(data); // the HTML content your controller has produced
@@ -114,8 +114,8 @@ $(document).ready(function () {
                     $('input[name="password"]').val('');
                     $('input[name="password_confirmation"]').val('');
                     $('#avatar-upload').empty();
-                    $('#example-multiple-optgroups').multiselect('deselectAll', false);
-                    $('#example-multiple-optgroups').multiselect('updateButtonText');
+                    $('#multiple-optgroups').multiselect('deselectAll', false);
+                    $('#multiple-optgroups').multiselect('updateButtonText');
                 }
             }
         });
