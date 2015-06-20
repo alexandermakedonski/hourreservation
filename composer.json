@@ -10,7 +10,7 @@
 		"intervention/image": "~2.2",
         "torann/hashids": "2.0.*@dev",
 		"kalnoy/nestedset": "~2.4",
-        "jenky/laravel-plupload": "~1.0"
+        "jildertmiedema/laravel-plupload": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

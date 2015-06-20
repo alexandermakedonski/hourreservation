@@ -23,9 +23,7 @@
   color: #fff;
   width: 275px;
 }
-.create-account-table{
-  height: 500px;
-}
+
 .registration-form form .group .fa-position {
   position: relative;
   top: 32px;
@@ -66,4 +64,9 @@
 #avatar-upload canvas{
   width: 70px;
   height: 70px;
+}
+
+.pagination-users {
+  text-align: right;
+  margin-top: -22px;
 }

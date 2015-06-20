@@ -4085,6 +4085,7 @@ Widgets
     border-radius: 999px;
     margin: -8px;
     overflow: hidden;
+    background-color: #C4CDE1;
 }
 .list-image .img{
     width: 100%;

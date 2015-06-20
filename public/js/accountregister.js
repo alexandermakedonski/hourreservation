@@ -1,16 +1,12 @@
 $(document).ready(function () {
     var uploader = new plupload.Uploader({
-        runtimes: 'html5,flash',
+        runtimes: 'html5',
         browse_button: 'avatar-upload',
-        drop_element: "avatar-upload",
-        max_file_count: 1,
         chunk_size: '50kb',
         url: '/auth/avatar',
-        dragdrop: true,
         multi_selection: false,
         flash_swf_url: '/js/vendor/plupload/Moxie.swf',
         silverlight_xap_url: '/js/vendor/plupload/Moxie.xap',
-        headers: {'X-CSRF-Token': $('input[name="_token"]').val()},
         filters: {
             max_file_size: '2mb',
             mime_types: [
@@ -19,13 +15,13 @@ $(document).ready(function () {
         }
     });
     uploader.init();
-    uploader.bind('FilesAdded', function(up, files) {
+    uploader.bind('FilesAdded', function (up, files) {
         $('#avatar-upload').empty();
-        $.each(files, function(){
+        $.each(files, function () {
 
             var img = new mOxie.Image();
 
-            img.onload = function() {
+            img.onload = function () {
                 this.embed($('#avatar-upload').get(0), {
                     width: 100,
                     height: 100,
@@ -33,76 +29,100 @@ $(document).ready(function () {
                 });
             };
 
-            img.onembedded = function() {
+            img.onembedded = function () {
                 this.destroy();
             };
 
-            img.onerror = function() {
+            img.onerror = function () {
                 this.destroy();
             };
 
             img.load(this.getSource());
 
         });
-    });
-    uploader.bind('FileUploaded',function(up, file, info){
-        $.ajax({
-            type: 'POST',
-            url: '/auth/regfinal',
-            data: {_token:_token,email:$('input[name="email"]').val()},
-            success:function(data){
-                //console.log(data);
-            }
-        });
-        window.location.reload();
+        if (uploader.files.length > 1){
+            uploader.splice(0,uploader.files.length-1)
+            uploader.removeFile(files[uploader.files.length-1]);
+            uploader.refresh();
+            console.log(uploader.files.length);
+        }
+
     });
 
-    var submitAjaxAccountCreate = function (e){
+    uploader.bind('BeforeUpload', function (up, file) {
+        up.settings.multipart_params = {"email": $('input[name="email"]').val(), "_token": Globals._token};
+    });
+
+    uploader.bind('UploadComplete',function(up, files){
+        $.ajax({
+            url: '/accounts/accounts',
+            type: "GET", // not POST, laravel won't allow it
+            success: function(data){
+                $data = $(data); // the HTML content your controller has produced
+                $('.ajax-users-load').html($data);
+            }
+        });
+        $('.panel-body').hide();
+        $('input[name="name"]').val('');
+        $('input[name="email"]').val('');
+        $('input[name="password"]').val('');
+        $('input[name="password_confirmation"]').val('');
+        $('#avatar-upload').empty();
+        $('#example-multiple-optgroups').multiselect('deselectAll', false);
+        $('#example-multiple-optgroups').multiselect('updateButtonText');
+    });
+
+    var submitAjaxAccountCreate = function (e) {
         var form = $(this);
         data = form.serialize();
         $.ajax({
             type: 'POST',
             url: form.prop('action'),
             data: data,
-            success:function(data){
-                if(data.fail){
+            success: function (data) {
+                if (data.fail) {
 
 
                     $('[data-show-error]').hide().popover('hide');
 
-                    $.each(data.errors, function( index, value ) {
+                    $.each(data.errors, function (index, value) {
 
-                        var popover =  $('[data-show-error='+index+']').show().popover();
+                        var popover = $('[data-show-error=' + index + ']').show().popover();
                         popover.attr('data-content', value);
 
                     });
 
-                }else{
-                    //console.log(uploader.files.length);
+                } else {
                     uploader.start();
                     $('[data-show-error]').hide().popover('destroy');
                     $('.flash').empty().append('Акаунтът е създаден!').fadeIn(500).delay(1000).fadeOut(500);
-                    if(uploader.files.length == 0){
-                        window.location.reload();
+                    if(uploader.files.length < 1){
+                        $.ajax({
+                            url: '/accounts/accounts',
+                            type: "GET", // not POST, laravel won't allow it
+                            success: function(data){
+                                $data = $(data); // the HTML content your controller has produced
+                                $('.ajax-users-load').html($data);
+                            }
+                        });
                     }
-                    //$('.panel-body').hide();
-                    //$('input[name="name"]').val('');
-                    //$('input[name="email"]').val('');
-                    //$('input[name="password"]').val('');
-                    //$('input[name="password_confirmation"]').val('');
-                    //$('#avatar-upload').empty();
-                    //$('#example-multiple-optgroups').multiselect('deselectAll', false);
-                    //$('#example-multiple-optgroups').multiselect('updateButtonText');
+                   //$('.panel-body table tbody').append('<tr class="info"><td ><div class="list-image"><img src="/avatar/'+data.id+'" alt="img" class="img"></div></td></tr>')
+
+                    $('.panel-body').hide();
+                    $('input[name="name"]').val('');
+                    $('input[name="email"]').val('');
+                    $('input[name="password"]').val('');
+                    $('input[name="password_confirmation"]').val('');
+                    $('#avatar-upload').empty();
+                    $('#example-multiple-optgroups').multiselect('deselectAll', false);
+                    $('#example-multiple-optgroups').multiselect('updateButtonText');
                 }
             }
         });
         e.preventDefault();
     }
 
-    $("form[data-remote-account]").on('submit',submitAjaxAccountCreate);
+    $("form[data-remote-account]").on('submit', submitAjaxAccountCreate);
 
-    $(".minimise-tool").on('click',function(){
-        $('.create-account-table').height(1300);
-    });
 
 });

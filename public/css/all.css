@@ -93,9 +93,6 @@ Plugin Css
   color: #fff;
   width: 275px; }
 
-.create-account-table {
-  height: 500px; }
-
 .registration-form form .group .fa-position {
   position: relative;
   top: 32px;
@@ -130,6 +127,10 @@ Plugin Css
 #avatar-upload canvas {
   width: 70px;
   height: 70px; }
+
+.pagination-users {
+  text-align: right;
+  margin-top: -22px; }
 
 
 /*# sourceMappingURL=app.css.map */

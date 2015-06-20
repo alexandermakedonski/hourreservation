@@ -194,33 +194,6 @@ $(window).load(function() {
   $(".loading").fadeOut(750);
 })
 $(document).ready(function () {
-    var submitAjaxRequestRole = function(e) {
-
-        var form = $(this);
-        user_id = form.find('input[name="user_id"]').val();
-        role_id = form.find('option:selected').val();
-        $.ajax({
-            type: 'POST',
-            url: form.prop('action'),
-            data: {'_token':_token,'user_id':user_id,'role_id':role_id},
-            success:function(data){
-            }
-        });
-
-        e.preventDefault();
-    };
-
-    $( "form[data-remote]" ).on( "submit",submitAjaxRequestRole);
-
-    $('.selectpicker').on('change',function(e)
-    {
-        
-        $(this).closest('form').submit();
-        $('.flash').empty().append('Акаунтът е обновен!').fadeIn(500).delay(300).fadeOut(500);
-    });
-
-});
-$(document).ready(function () {
 
 });
 /**
@@ -560,8 +533,8 @@ $(document).ready(function () {
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle btn btn-light" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control input-sm multiselect-search" type="text" placeholder="Search"></div></li>',
-                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-light btn-sm multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button><i class="fa fa-remove"></i></button></span>',
+                filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control input-sm multiselect-search" type="text" placeholder="Search"></div></li>',
+                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-icon btn-light btn-sm  multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button><i class="fa fa-remove"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'

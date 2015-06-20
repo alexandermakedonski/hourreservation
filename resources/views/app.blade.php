@@ -12,13 +12,6 @@
     <!-- ========== Css Files ========== -->
     <link href="{{ asset('/css/all.css') }}" rel="stylesheet">
 
-    <script type="text/javascript" src="{{ URL::asset('js/all.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            Global:  _token = '{{csrf_token()}}';
-        });
-    </script>
-
 </head>
 <body>
 <!-- Start Page Loading -->
@@ -142,19 +135,17 @@
 <!-- START CONTENT -->
 <div class="content">
 
-    @yield('content')
+
 
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
     <!-- START CONTAINER -->
-    <div class="container-default">
 
-
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+    @yield('content')
+    <div class="container-default" style="min-height: 800px">
 
     </div>
+
     <!-- END CONTAINER -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
@@ -344,7 +335,13 @@
 <!-- ================================================
 JS Library
 ================================================ -->
-
+<script type="text/javascript" src="{{ URL::asset('js/all.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Globals = {  _token : '{{csrf_token()}}' }
+    });
+</script>
+@yield('scripts')
 
 
 </body>

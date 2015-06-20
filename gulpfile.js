@@ -26,7 +26,6 @@ elixir(function(mix) {
     	'/vendor/jquery.min.js',
     	'/vendor/bootstrap.min.js',
     	'/vendor/plugins.js',
-        'ajax-helpers.js',
         'app.js',
         '/vendor/bootstrap-multiselect.js',
 

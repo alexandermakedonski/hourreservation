@@ -1,14 +1,14 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
 use App\Category_service;
 use Input;
 use DB;
-
-use Illuminate\Http\Request;
+use View;
 
 class AccountController extends Controller {
 
@@ -17,11 +17,25 @@ class AccountController extends Controller {
     }
 
     public function getIndex(){
-        $users = User::all();
+
+        $users = User::paginate(10);
         $roles = Role::orderBy('id', 'DESC')->get();
         $root_categories = Category_service::whereIsRoot()->get();
         $categories = Category_service::get();
         return view('accounts.index',compact('users','roles','root_categories','categories'));
+    }
+
+    public function getAccounts(){
+
+        $users = User::paginate(10);
+        $roles = Role::orderBy('id', 'DESC')->get();
+        $root_categories = Category_service::whereIsRoot()->get();
+        $categories = Category_service::get();
+        if(Request::ajax()){
+            return \Response::json(View::make('accounts.users',compact('users','roles','root_categories','categories'))->render());
+        }
+
+        return View::make('accounts.users', compact('users','roles','root_categories','categories'));
     }
 
     public function postRole(){
