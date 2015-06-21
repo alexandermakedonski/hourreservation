@@ -22,8 +22,4 @@ $(document).ready(function () {
         $(this).closest('form').submit();
         $('.flash').empty().append('Акаунтът е обновен!').fadeIn(500).delay(300).fadeOut(500);
     });
-
-    $("select[name='role']").on('click',function(e){
-        console.log($(this).first().children().attr("selected"));
-    });
 });

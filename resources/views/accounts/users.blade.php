@@ -89,7 +89,7 @@
             <a class="prev-page-user" href="javascript:void(0)"><span>«</span></a>
         </li>
         @for ($i = 0; $i < $users->lastpage(); $i++)
-            <li><a class="page-users"  href="javascript:void(0)">{{$i + 1}}</a></li>
+            <li><a class="page-users"  data-page="{{ $i+1 }}" href="javascript:void(0)">{{$i + 1}}</a></li>
         @endfor
         <li>
             <a class="next-page-user" href="javascript:void(0)" aria-label="Next"><span>»</span></a>
@@ -99,6 +99,7 @@
 
 <script type="text/javascript">
    $(document).ready(function () {
+
         $('.select-account-position').multiselect({
             enableFiltering: true,
             enableClickableOptGroups: true,
@@ -124,7 +125,7 @@
 
         $( ".page-users" ).on( "click", function(){
             $.ajax({
-                url: '/accounts/accounts/?page='+$(this).html(),
+                url: '/accounts/accounts/?page='+$(this).data('page'),
                 type: "GET", // not POST, laravel won't allow it
                 success: function(data){
                     $data = $(data); // the HTML content your controller has produced
@@ -159,6 +160,7 @@
             }
         });
        $( ".page-users:eq("+({{$users->currentPage()}}-1)+")").parent().addClass('active');
+
     });
 </script>
 <script type="text/javascript" src="{{ URL::to('js/account-role.js') }}"></script>

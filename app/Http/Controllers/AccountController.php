@@ -18,16 +18,15 @@ class AccountController extends Controller {
 
     public function getIndex(){
 
-        $users = User::paginate(10);
         $roles = Role::orderBy('id', 'DESC')->get();
         $root_categories = Category_service::whereIsRoot()->get();
         $categories = Category_service::get();
-        return view('accounts.index',compact('users','roles','root_categories','categories'));
+        return view('accounts.index',compact('roles','root_categories','categories'));
     }
 
     public function getAccounts(){
 
-        $users = User::paginate(10);
+        $users = User::paginate(5);
         $roles = Role::orderBy('id', 'DESC')->get();
         $root_categories = Category_service::whereIsRoot()->get();
         $categories = Category_service::get();

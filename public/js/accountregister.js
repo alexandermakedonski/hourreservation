@@ -8,7 +8,6 @@ $(document).ready(function () {
         flash_swf_url: '/js/vendor/plupload/Moxie.swf',
         silverlight_xap_url: '/js/vendor/plupload/Moxie.xap',
         filters: {
-            max_file_size: '2mb',
             mime_types: [
                 {title: "Image files", extensions: "jpg,gif,png,jpeg"}
             ]
@@ -42,7 +41,6 @@ $(document).ready(function () {
         });
         if (uploader.files.length > 1){
             uploader.splice(0,uploader.files.length-1)
-            uploader.removeFile(files[uploader.files.length-1]);
             uploader.refresh();
             console.log(uploader.files.length);
         }
@@ -105,17 +103,18 @@ $(document).ready(function () {
                                 $('.ajax-users-load').html($data);
                             }
                         });
+                        $('.panel-body').hide();
+                        $('input[name="name"]').val('');
+                        $('input[name="email"]').val('');
+                        $('input[name="password"]').val('');
+                        $('input[name="password_confirmation"]').val('');
+                        $('#avatar-upload').empty();
+                        $('#multiple-optgroups').multiselect('deselectAll', false);
+                        $('#multiple-optgroups').multiselect('updateButtonText');
                     }
                    //$('.panel-body table tbody').append('<tr class="info"><td ><div class="list-image"><img src="/avatar/'+data.id+'" alt="img" class="img"></div></td></tr>')
 
-                    $('.panel-body').hide();
-                    $('input[name="name"]').val('');
-                    $('input[name="email"]').val('');
-                    $('input[name="password"]').val('');
-                    $('input[name="password_confirmation"]').val('');
-                    $('#avatar-upload').empty();
-                    $('#multiple-optgroups').multiselect('deselectAll', false);
-                    $('#multiple-optgroups').multiselect('updateButtonText');
+
                 }
             }
         });

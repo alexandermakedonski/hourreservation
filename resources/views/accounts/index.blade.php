@@ -2,7 +2,6 @@
 
 @section('content')
     <!-- Start Page Header -->
-
     <div class="page-header">
         <h1 class="title">Акаунти</h1>
         <ol class="breadcrumb">
@@ -55,6 +54,7 @@
     </script>
     <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/accountregister.js') }}"></script>
+
 @endsection
 
 
