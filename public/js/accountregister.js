@@ -123,5 +123,19 @@ $(document).ready(function () {
 
     $("form[data-remote-account]").on('submit', submitAjaxAccountCreate);
 
+    $('#multiple-optgroups').multiselect({
+        enableFiltering: true,
+        enableClickableOptGroups: true,
+        buttonWidth: '340px',
+        maxHeight:720,
+        onDropdownShow: function(event) {
+            var bodyhegith = $('.registration-form').height();
+            $('.registration-form').css({'height':bodyhegith+570+'px'});
+        },
+        onDropdownHidden: function(event) {
+            var bodyhegith = $('.registration-form').height();
+            $('.registration-form').css({'height':bodyhegith-570+'px'});
+        }
+    });
 
 });

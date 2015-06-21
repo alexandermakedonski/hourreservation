@@ -3,9 +3,27 @@
 @section('content')
     <!-- Start Page Header -->
     <div class="page-header">
-        <h1 class="title">Акаунти</h1>
+        <div class="row">
+            <div class="col-lg-1">
+                <h1 class="title">Акаунти</h1>
+            </div>
+            <div class="col-lg-3">
+                <div class="title">
+                    {!! Form::open(['data-searchuser','method'=>'get','url'=>'accounts/usersearch/']) !!}
+                        <div class="input-group">
+                            {!! Form::text('search_query',null,['class' => 'form-control input-sm','placeholder'=>'Търси']) !!}
+                            <span class="input-group-btn">
+                                <button class="btn btn-light btn-sm user-search" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+
+        </div>
         <ol class="breadcrumb">
             <li class="active">Форма достъпна само за администратори - за добвяне и коригиране на акаунти</li>
+
         </ol>
     </div>
     <!-- End Page Header -->
@@ -30,31 +48,46 @@
                 type: "GET", // not POST, laravel won't allow it
                 success: function(data){
                     $data = $(data); // the HTML content your controller has produced
-                    $('.ajax-users-load').hide().html($data).fadeIn('100');
+                    $('.ajax-users-load').html($data);
                     $( ".page-users").first().parent().addClass('active');
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $('#multiple-optgroups').multiselect({
-            enableFiltering: true,
-            enableClickableOptGroups: true,
-            buttonWidth: '340px',
-            maxHeight:720,
-            onDropdownShow: function(event) {
-                var bodyhegith = $('.registration-form').height();
-                $('.registration-form').css({'height':bodyhegith+570+'px'});
-            },
-            onDropdownHidden: function(event) {
-                var bodyhegith = $('.registration-form').height();
-                $('.registration-form').css({'height':bodyhegith-570+'px'});
-            }
+
+            $('.user-search').on('click',function(){
+                var form = $(this).closest('form');
+                $.ajax({
+                    url:form.prop('action'),
+                    type:'GET',
+                    data:form.serialize(),
+                    success:function(data){
+                        $data = $(data); // the HTML content your controller has produced
+                        $('.ajax-users-load').html($data);
+                        $( ".page-users-search").first().parent().addClass('active');
+                    }
+                });
+            });
+
+
+
+            $('input[name="search_query"]').keyup(function() {
+                var value = this.value.length;
+                if(value == 0){
+                    $.ajax({
+                        url: '/accounts/accounts/?page='+1,
+                        type: "GET", // not POST, laravel won't allow it
+                        success: function(data){
+                            $data = $(data); // the HTML content your controller has produced
+                            $('.ajax-users-load').html($data);
+                            $( ".page-users").first().parent().addClass('active');
+                        }
+                    });
+                }
+            });
+
         });
     </script>
     <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/accountregister.js') }}"></script>
-
 @endsection
 
 

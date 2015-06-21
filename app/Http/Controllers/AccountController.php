@@ -37,6 +37,16 @@ class AccountController extends Controller {
         return View::make('accounts.users', compact('users','roles','root_categories','categories'));
     }
 
+    public function getUsersearch(){
+
+        $search = Input::get('search_query');
+        $users = User::where('email','like','%'.$search.'%')->orWhere('name','like','%'.$search.'%')->paginate(5);
+        $roles = Role::orderBy('id', 'DESC')->get();
+        $root_categories = Category_service::whereIsRoot()->get();
+        $categories = Category_service::get();
+        return \Response::json(View::make('accounts.searchusers',compact('users','roles','root_categories','categories'))->render());
+    }
+
     public function postRole(){
 
         $user_id = \Hashids::decode(Input::get('user_id'));
