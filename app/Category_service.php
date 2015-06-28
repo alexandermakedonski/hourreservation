@@ -8,9 +8,15 @@ class Category_service extends \Kalnoy\Nestedset\Node {
 
     protected $fillable = ['name'];
 
+
+
     public function users()
     {
         return $this->belongsToMany('App\User');
     }
 
+    public function services()
+    {
+        return $this->hasMany('App\Service', 'category_id');
+    }
 }

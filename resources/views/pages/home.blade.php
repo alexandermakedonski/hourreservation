@@ -9,6 +9,9 @@
             margin: 40px auto;
             padding: 0 10px;
         }
+        .dropdown-menu li{
+            cursor: pointer;
+        }
     </style>
 @endsection
 
@@ -130,7 +133,6 @@
             var services = {!! $services!!};
             $('.searchEvent').on('keyup',function(e){
                     var searchVal = $(this).val().toLowerCase();
-                    bool = false;
                     if(searchVal.length > 0) {
                         $('.dropdown-menu').empty();
                         services.forEach(function (service) {
@@ -140,6 +142,9 @@
                             }
                         });
                         dynamicElements();
+                    }else{
+                        $('.dropdown-menu').empty().append('<li>&nbsp&nbsp&nbspНяма намерени резутлати!&nbsp&nbsp&nbsp</li>');
+
                     }
                 });
             });

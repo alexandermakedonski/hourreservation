@@ -23,6 +23,8 @@ class PagesController extends Controller {
             $minutes = $hours%60;
             $hours = intval($hours/60);
             $service->time = $hours.':'.$minutes;
+            $service->name = '('.$service->category->name.')-'.$service->name;
+            //dd($service->name);
         }
 		return view('pages.home',compact('services'));
 	}
