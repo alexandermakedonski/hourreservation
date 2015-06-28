@@ -69,9 +69,9 @@
 
 
 
-            $('input[name="search_query"]').keyup(function() {
+            $('input[name="search_query"]').keyup(function(e) {
                 var value = this.value.length;
-                if(value == 0){
+                if(value == 0 && e.keyCode == 8){
                     $.ajax({
                         url: '/accounts/accounts/?page='+1,
                         type: "GET", // not POST, laravel won't allow it
@@ -84,6 +84,19 @@
                 }
             });
 
+            $("form[data-searchuser]").on("submit", function(e){
+                    $.ajax({
+                        url: $(this).prop('action'),
+                        type: 'GET',
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            $data = $(data); // the HTML content your controller has produced
+                            $('.ajax-users-load').html($data);
+                            $(".page-users-search").first().parent().addClass('active');
+                        }
+                    });
+                e.preventDefault();
+            });
         });
     </script>
     <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>

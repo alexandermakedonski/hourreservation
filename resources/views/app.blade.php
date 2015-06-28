@@ -142,9 +142,7 @@
     <!-- START CONTAINER -->
 
     @yield('content')
-    <div class="container-default" style="min-height: 800px">
-
-    </div>
+    <div class="container-default"></div>
 
     <!-- END CONTAINER -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->

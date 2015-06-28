@@ -195,6 +195,11 @@ $(window).load(function() {
   $(".loading").fadeOut(750);
 })
 $(document).ready(function () {
+    var h = window.innerHeight;
+    $('.container-default').css({'height':h+'px'});
+    console.log(h);
+});
+$(document).ready(function () {
 
 });
 /**

@@ -12,9 +12,7 @@
                 <td>Снимка</td>
                 <td>Име</td>
                 <td>Длъжност</td>
-                <td>Време</td>
                 <td>Права</td>
-                <td>Отчет</td>
                 <td>История</td>
             </tr>
             </thead>
@@ -48,7 +46,6 @@
                         {!! Form::close() !!}
 
                     </td>
-                    <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>
                         <div class="form-group">
                             <div class="col-sm-8">
@@ -74,7 +71,6 @@
                             </div>
                         </div>
                     </td>
-                    <td>Credit Card</td>
                     <td>Бутон</td>
                 </tr>
 
