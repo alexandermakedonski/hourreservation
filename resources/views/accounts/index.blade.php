@@ -101,6 +101,7 @@
     </script>
     <script type="text/javascript" src="{{ URL::to('js/vendor/plupload/plupload.full.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/accountregister.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/vendor/helpers.js') }}"></script>
 @endsection
 
 

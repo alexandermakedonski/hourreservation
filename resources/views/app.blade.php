@@ -11,6 +11,7 @@
 
     <!-- ========== Css Files ========== -->
     <link href="{{ asset('/css/all.css') }}" rel="stylesheet">
+    @yield('styles')
 
 </head>
 <body>

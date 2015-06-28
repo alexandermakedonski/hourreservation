@@ -17,7 +17,14 @@ class PagesController extends Controller {
 
 	public function home()
 	{
-		return view('pages.home');
+        $services = \App\Service::all();
+        foreach($services as $service){
+            $hours = $service->time;
+            $minutes = $hours%60;
+            $hours = intval($hours/60);
+            $service->time = $hours.':'.$minutes;
+        }
+		return view('pages.home',compact('services'));
 	}
 
 

@@ -18,6 +18,7 @@ elixir(function(mix) {
     mix.styles([
     	'root.css',
         'app.css',
+        'jquery-ui.min.css',
         'bootstrap-multiselect.css'
     ],null,'public/css')
 
@@ -26,9 +27,9 @@ elixir(function(mix) {
     	'/vendor/jquery.min.js',
     	'/vendor/bootstrap.min.js',
     	'/vendor/plugins.js',
-        '/vendor/helpers.js',
         'app.js',
         '/vendor/bootstrap-multiselect.js',
+        'vendor/jquery-ui.custom.min.js'
 
     ],null,'public/js')
 

@@ -1,5 +1,9 @@
 $(document).ready(function () {
     var h = window.innerHeight;
-    $('.container-default').css({'min-height':h+'px'});
-    console.log(h);
+    if($('body').height() < h){
+        h = h-$('body').height();
+        $('.container-default').css({'min-height':h+'px'});
+    }
+
+
 });
