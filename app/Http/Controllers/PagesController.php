@@ -19,10 +19,10 @@ class PagesController extends Controller {
 	{
         $services = \App\Service::all();
         foreach($services as $service){
-            $hours = $service->time;
-            $minutes = $hours%60;
-            $hours = intval($hours/60);
-            $service->time = $hours.':'.$minutes;
+//            $hours = $service->time;
+//            $minutes = $hours%60;
+//            $hours = intval($hours/60);
+//           $service->time = $hours.':'.$minutes;
             $service->name = '('.$service->category->name.')-'.$service->name;
             //dd($service->name);
         }
