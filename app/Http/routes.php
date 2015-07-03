@@ -49,5 +49,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
     'accounts' => 'AccountController',
     'lock'     => 'LockPageController',
+    'calendar' => 'CalendarController'
 ]);
 

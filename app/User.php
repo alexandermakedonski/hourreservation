@@ -42,4 +42,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $catServices = $this->belongsToMany('App\Category_service');
         return $catServices;
     }
+
+    public function services()
+    {
+        $services = $this->belongsToMany('App\Service');
+        return $services;
+    }
 }

@@ -11,4 +11,10 @@ class Service extends Model {
         return $this->belongsTo('App\Category_service','category_id');
     }
 
+    public function users()
+    {
+        $users = $this->belongsToMany('App\User');
+        return $users;
+    }
+
 }

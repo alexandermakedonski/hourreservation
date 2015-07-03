@@ -18,6 +18,7 @@ class PagesController extends Controller {
 	public function home()
 	{
         $services = \App\Service::all();
+        $reservedhours = \App\ReservedHours::all();
         foreach($services as $service){
 //            $hours = $service->time;
 //            $minutes = $hours%60;
@@ -26,7 +27,7 @@ class PagesController extends Controller {
             $service->name = '('.$service->category->name.')-'.$service->name;
             //dd($service->name);
         }
-		return view('pages.home',compact('services'));
+		return view('pages.home',compact('services','reservedhours'));
 	}
 
 

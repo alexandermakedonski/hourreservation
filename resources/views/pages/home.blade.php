@@ -4,11 +4,6 @@
     <link href="{{ asset('/css/plugin/qtip/jquery.qtip.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/plugin/fullcalendar/fullcalendar.css') }}" rel="stylesheet">
     <style>
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 10px;
-        }
         .dropdown-menu li{
             cursor: pointer;
         }
@@ -26,19 +21,6 @@
     <!-- End Page Header -->
     <div class="panel">
         <div class="row btndiv">
-            {{--<div class="col-md-3">--}}
-                {{--<div class="dropdown">--}}
-                    {{--<input type="text"  class="form-control searchEvent" data-toggle="dropdown" >--}}
-                    {{--<ul class="dropdown-menu">--}}
-                        {{--<li>&nbsp&nbsp&nbspНяма намерени резутлати!&nbsp&nbsp&nbsp</li>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div id='external-events'>--}}
-            {{--<h4>Draggable Events</h4>--}}
-            {{--<div class='draggable' data-title="Подстригване" data-description="ВАЛЯ-ПЕПИ"  data-duration='05:00'>Подстригване</div>--}}
-            {{--<div class='draggable' data-title="Боядисване" data-description='ДЕси-НИКИ'>Боядисване</div>--}}
-            {{--</div>--}}
             <div class="col-md-8">
                 <div id='calendar'></div>
             </div>
@@ -55,28 +37,36 @@
                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
+                    {!! Form::open(['data-user-service','method'=>'post','url'=>'calendar/service-for-users/']) !!}
+
                     <div class="form-group">
                         <div class="dropdown">
-                            <label for="recipient-name" class="control-label">Услуга:</label>
-                            <input type="text"  class="form-control searchEventModal" data-toggle="dropdown" >
+                            <label class="control-label">Услуга:</label>
+                            <input name="service" type="text" autocomplete="off" class="form-control searchEventModal" data-toggle="dropdown" >
                             <ul class="dropdown-menu">
                                 <li>&nbsp&nbsp&nbspНяма намерени резутлати!&nbsp&nbsp&nbsp</li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="recipient-name" class="control-label">Клиент:</label>
-                        <input type="text" value='' class="form-control" id="personal">
+                        <label name="personal" for="recipient-name" class="control-label">Служител:</label>
+                        <select class="form-control selected-user">
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="recipient-name" class="control-label">Служител:</label>
-                        <input type="text" value='' class="form-control" id="client">
+                        <label class="control-label">Клиент:</label>
+                        <input name="client" type="text" value='' class="form-control" id="client">
                     </div>
+
                     <input type="text" value='' class="form-control" id="start" style="display: none">
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="submit" data-dismiss="modal">Избери</button>
+                    <button type="submit" class="btn btn-default" id="submit" >Избери</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -111,17 +101,22 @@
             slotDuration: '00:15:01',
             scrollTime: '10:00:00',
             minTime: "08:00:00",
-            maxTime: "24:00:00",
-            axisFormat: 'h:mm',
+            maxTime: "23:00:00",
+            axisFormat: 'H:mm',
             eventLimit: true, // allow "more" link when too many events
             events: [
+                @foreach($reservedhours as $reservedhour)
                     {
-                        title: 'Meeting',
-                        description: 'Description',
-                        start: '2015-06-29T14:30:00',
-                    }
 
-            ],
+                            title: '{!!$reservedhour->services[0]->name!!}',
+                            description: '{!!$reservedhour->description!!}',
+                            start: '{!!$reservedhour->start!!}',
+                            end: '{!!$reservedhour->end!!}'
+
+                    },
+                @endforeach
+
+        ],
             editable:false,
             drop: function(date) {
             },
@@ -165,41 +160,18 @@
             });
         }
         dynamicElements();
-//            $('.addEvent').on('keyup',function(e){
-//                if(e.keyCode == 13)
-//                {
-//                    $('#external-events').append("<div class='draggable'  data-title="+$(this).val()+" data-description='Dynamic'  data-duration='00:30'>"+$(this).val()+"</div>");
-//                    dynamicElements();
-//                }
-//
-//            });
+
         var services = {!! $services!!};
-        $('.searchEvent').on('keyup',function(e){
-            var searchVal = $(this).val().toLowerCase();
-            if(searchVal.length > 0) {
-                $('.dropdown-menu').empty();
-                services.forEach(function (service) {
-                    var name = service.name.toLowerCase();
-                    if (name.search(searchVal) > -1) { //data-description="price:'+service.price+',time:'+service.time+' data-duration='+service.time+'
-                        $('.dropdown-menu').append('<li class="draggable" data-title="' + service.name + '" data-description=price:"' + service.price + '"/time:"' + service.time + '" data-duration="' + service.time + '">&nbsp&nbsp&nbsp"' + service.name + '"</li>');
-                    }
-                });
-                dynamicElements();
-            }else{
-                $('.dropdown-menu').empty().append('<li>&nbsp&nbsp&nbspНяма намерени резутлати!&nbsp&nbsp&nbsp</li>');
-
-            }
-        });
-
 
         $('.searchEventModal').on('keyup',function(e){
             var searchVal = $(this).val().toLowerCase();
+            searchVal = transliterate(searchVal);
             if(searchVal.length > 0) {
                 $('.dropdown-menu').empty();
                 services.forEach(function (service) {
                     var name = service.name.toLowerCase();
                     if (name.search(searchVal) > -1) {
-                        $('.dropdown-menu').append('<li data-service data-title="' + service.name + '" data-description=price:"' + service.price + '"/time:"' + service.time + '" data-duration="' + service.time + '">&nbsp&nbsp&nbsp"' + service.name + '"</li>');
+                        $('.dropdown-menu').append('<li data-service data-id="' + service.id + '" data-title="' + service.name + '" data-description="price:' + service.price + '/time:' + service.time + '" data-duration="' + service.time + '">&nbsp&nbsp&nbsp"' + service.name + '"</li>');
                     }
                 });
                 dynamicElements();
@@ -209,31 +181,125 @@
 
             $("li[data-service]").on("click", function(){
 
+                var a = moment.duration($(this).data('duration'),'m');
+                var end = moment($('#start').val());
+                end.add(a, 'milliseconds');
+                end = end.format();
                 $('.searchEventModal').val($(this).data('title'));
-                $('.searchEventModal').data('title',$(this).data('title')) ;
-                $('.searchEventModal').data('description',$(this).data('description')) ;
-                $('.searchEventModal').data('duration',$(this).data('duration'));
+                $('.searchEventModal').data('id',$(this).data('id'));
+                $('.searchEventModal').data('title',$(this).data('title'));
+                $('.searchEventModal').data('description',$(this).data('description'));
+                $('.searchEventModal').data('end',end);
+
+                $.ajax({
+                    type:'GET',
+                    url:'/calendar/users-for-service/',
+                    data:{'id':$(this).data('id')},
+                    success:function(data){
+                        $('.selected-user').empty();
+                        data.forEach(function(data){
+                            //console.log(data);
+                            $('.selected-user').append('<option data-userid="'+data.id+'">'+data.name+'</option>');
+                        });
+                    }
+                });
 
             });
 
         });
 
+        function transliterate(word){
+            var answer = "" , a = {};
+
+            a["A"]="А";a["a"]="а";
+            a["B"]="Б";a["b"]="б";
+            a["V"]="В";a["v"]="в";
+            a["G"]="Г";a["g"]="г";
+            a["D"]="Д";a["d"]="д";
+            a["E"]="Е";a["e"]="е";
+            a["J"]="Ж";a["j"]="ж";
+            a["Z"]="З";a["z"]="з";
+            a["I"]="И";a["i"]="и";
+            a["K"]="К";a["k"]="к";
+            a["L"]="Л";a["l"]="л";
+            a["M"]="М";a["m"]="м";
+            a["N"]="Н";a["n"]="н";
+            a["O"]="О";a["o"]="о";
+            a["P"]="П";a["p"]="п";
+            a["R"]="Р";a["r"]="р";
+            a["S"]="С";a["s"]="с";
+            a["T"]="Т";a["t"]="т";
+            a["U"]="У";a["u"]="у";
+            a["F"]="Ф";a["f"]="ф";
+            a["PH"]="Ф";a["ph"]="ф";
+            a["PF"]="Ф";a["pf"]="ф";
+            a["H"]="Х";a["h"]="х";
+            a["TS"]="Ц";a["ts"]="ц";
+            a["TZ"]="Ц";a["tz"]="ц";
+            a["TCH"]="Ч";a["tch"]="ч";
+            a["CH"]="Ч";a["ch"]="ч";
+            a["SH"]="Ш";a["sh"]="ш";
+            a["TSH"]="Ш";a["tsh"]="ш";
+            a["SHT"]="Щ";a["sht"]="щ";
+            a["SHT"]="Щ";a["sht"]="щ";
+            a["IU"]="Ю";a["iu"]="ю";
+            a["YU"]="Ю";a["yu"]="ю";
+            a["IA"]="Ю";a["ia"]="ю";
+            a["YA"]="Ю";a["ya"]="ю";
+
+            a["Q"]="Я";a["q"]="я";
+            a["X"]="Ь";a["x"]="х";
+            a["W"]="В";a["w"]="в";
+            a["Y"]="и";a["y"]="и";
+            for (i in word){
+                if (word.hasOwnProperty(i)) {
+                    if (a[word[i]] === undefined){
+                        answer += word[i];
+                    } else {
+                        answer += a[word[i]];
+                    }
+                }
+            }
+            return answer;
+        }
+
         $('#submit').on('click',function(e){
-            var a = moment.duration($('.searchEventModal').data('duration'),'m');
-            var end = moment($('#start').val());
-            end.add(a, 'milliseconds');
 
             $("#calendar").fullCalendar('renderEvent',
             {
                 title: $('.searchEventModal').data('title'),
-                description: $('.searchEventModal').data('description')+'/'+$('#client').val()+'/'+$('#personal').val(),
+                description:$('#client').val(),
                 start: $('#start').val(),
-                end:end
-        }, true);
+                end:$('.searchEventModal').data('end')
+            }, true);
+
+
+            $(this).closest('form').submit();
+
+
+        });
+
+        $("form[data-user-service]").on("submit", function(e){
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).prop('action'),
+                data: {'_token': Globals._token,'user_id': $('.selected-user option:selected').data('userid'),'service_id':$('.searchEventModal').data('id'),'description':$('#client').val(),'start':$('#start').val(),'end':$('.searchEventModal').data('end')},
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+
             $('.searchEventModal').val('');
             $('#client').val('');
             $('#personal').val('');
+            $('.selected-user').empty();
+
+            $('#hourElements').modal('hide');
+
+            e.preventDefault();
         });
+
      });
     </script>
     <script type="text/javascript" src="{{ URL::asset('js/vendor/helpers.js') }}"></script>
