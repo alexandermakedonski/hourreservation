@@ -102,13 +102,17 @@
                 $('#hourElements').modal('show');
                 $('#start').val(date.format());
             },
-            slotEventOverlap:true,
             defaultDate: $('#calendar').fullCalendar( 'today' ),
             lang: currentLangCode,
             defaultView: 'agendaWeek',
-            buttonIcons: false, // show the prev/next text
             weekNumbers: true,
             editable: true,
+            allDaySlot: false,
+            slotDuration: '00:15:01',
+            scrollTime: '10:00:00',
+            minTime: "08:00:00",
+            maxTime: "24:00:00",
+            axisFormat: 'h:mm',
             eventLimit: true, // allow "more" link when too many events
             events: [
                     {
