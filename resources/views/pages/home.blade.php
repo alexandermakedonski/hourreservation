@@ -108,7 +108,7 @@
                 @foreach($reservedhours as $reservedhour)
                     {
 
-                            title: '{!!$reservedhour->services[0]->name!!}',
+                            title: '{!!$reservedhour->name!!}',
                             description: '{!!$reservedhour->description!!}',
                             start: '{!!$reservedhour->start!!}',
                             end: '{!!$reservedhour->end!!}'
@@ -265,17 +265,7 @@
 
         $('#submit').on('click',function(e){
 
-            $("#calendar").fullCalendar('renderEvent',
-            {
-                title: $('.searchEventModal').data('title'),
-                description:$('#client').val(),
-                start: $('#start').val(),
-                end:$('.searchEventModal').data('end')
-            }, true);
-
-
             $(this).closest('form').submit();
-
 
         });
 
@@ -286,18 +276,39 @@
                 url: $(this).prop('action'),
                 data: {'_token': Globals._token,'user_id': $('.selected-user option:selected').data('userid'),'service_id':$('.searchEventModal').data('id'),'description':$('#client').val(),'start':$('#start').val(),'end':$('.searchEventModal').data('end')},
                 success: function (data) {
-                    console.log(data);
+                    if(data == 'true'){
+
+                        $("#calendar").fullCalendar('renderEvent',
+                                {
+                                    title: $('.searchEventModal').data('title'),
+                                    description:$('#client').val(),
+                                    start: $('#start').val(),
+                                    end:$('.searchEventModal').data('end')
+                                }, true);
+
+                                $('.searchEventModal').val('');
+                                $('#client').val('');
+                                $('#personal').val('');
+                                $('.selected-user').empty();
+
+                                $('#hourElements').modal('hide');
+
+
+                    }else{
+
+                        $('.searchEventModal').val('');
+                        $('#client').val('');
+                        $('#personal').val('');
+                        $('.selected-user').empty();
+
+                        $('#hourElements').modal('hide');
+
+                    }
                 }
+
             });
-
-            $('.searchEventModal').val('');
-            $('#client').val('');
-            $('#personal').val('');
-            $('.selected-user').empty();
-
-            $('#hourElements').modal('hide');
-
             e.preventDefault();
+
         });
 
      });

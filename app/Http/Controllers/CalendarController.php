@@ -15,9 +15,14 @@ class CalendarController extends Controller {
     }
 
     public function postServiceForUsers(){
-        $request = Input::all();
-        \DB::table('service_user')->insert(['user_id'=>Input::get('user_id'),'service_id'=>Input::get('service_id'),'description'=>Input::get('description'),'start'=>Input::get('start'),'end'=>Input::get('end')]);
-        return $request;
+
+        if(Input::has('user_id')) {
+            $request = Input::all();
+            \DB::table('service_user')->insert(['user_id' => Input::get('user_id'), 'service_id' => Input::get('service_id'), 'description' => Input::get('description'), 'start' => Input::get('start'), 'end' => Input::get('end')]);
+            return 'true';
+        }else{
+            return 'false';
+        }
     }
 
 }

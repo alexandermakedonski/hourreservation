@@ -27,6 +27,12 @@ class PagesController extends Controller {
             $service->name = '('.$service->category->name.')-'.$service->name;
             //dd($service->name);
         }
+
+        foreach($reservedhours as $reservedhour){
+
+            $reservedhour->name = '('.$reservedhour->services[0]->category->name.')-'.$reservedhour->services[0]->name;
+
+        }
 		return view('pages.home',compact('services','reservedhours'));
 	}
 
